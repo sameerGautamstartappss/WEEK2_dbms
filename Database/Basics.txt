@@ -1,0 +1,36 @@
+Database is a collection of related data. Data is a collection of facts and figures which may be useful or may not be useful.
+
+DBMS :- Database Management System
+- Technology of storing and retrieving user's data.
+- Efficiency with appropriate security measures.
+
+# Basics of DBMS
+    # Architecture 
+    # Data models
+    # Data Schema
+    # Data Independence
+    # E-R model
+    # Relation model
+    # Relational Database Design
+    # Storage and file Structure
+
+Charactristicks of DBMS:-
+    - Real World entity :- DBMS uses real world entities to design its architecture.
+    - Realation-based tables :- DBMS allows entities and relations among them to form tables. A user can understand the architecture of a database just by looking at the table names.
+    - Isolation of data and application :- A database system is entirely different than its data. A database is an active entity, whereas data is said to be passive, on which database works. DBMS also stores metadata, which is data about data, to ease its own process.
+
+        # Active Entity (Database): A database is considered active because it is designed to "perform operations" - (it processes, organizes, manipulates and retrives data.) - It has built-in intelligence to enforce rules, maintain integrity, and interact with users or applications. Essentially, a database works on the data to store, index, query, update, and delete it efficiently.
+        
+        #Passive Entity (Data): Data, on the other hand, is passive because it doesn’t perform any action on its own. It exists in a structured format inside the database and is manipulated by the database management system. (It has no ability to modify itself or interact dynamically—it simply resides within tables, waiting to be accessed, updated, or processed.)
+
+        Imagine a library:
+        - The database is like a librarian—actively categorizing, sorting, indexing, and retrieving books when needed.
+        - The data is like the books themselves—passively stored on shelves, waiting to be picked up, read, or updated.
+        This active-passive relationship ensures structured data storage and seamless management. Does this explanation make sense? I’d be happy to expand on any part!
+
+    - Less Redundancy - DBMS follows the rules of normalization.
+    What is normalization ?
+        - Scientific process that reduces data redundancy.
+        
+
+    

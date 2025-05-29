@@ -1,0 +1,66 @@
+# MySQL Docker Setup Guide
+
+This guide explains how to run a MySQL container using Docker, both with a simple `docker run` command and a more robust `docker-compose.yml` setup.
+
+---
+
+## 1️⃣ Quick Start: Run MySQL with Docker
+
+✅ Loads environment variables from a .env file
+✅ Optionally includes phpMyAdmin (web UI for MySQL)
+✅ Automatically creates the DB, user, and sets root credentials
+✅ Uses persistent named volumes
+
+📁 File 1: .env
+Create a file named .env in the same folder:
+
+MYSQL_ROOT_PASSWORD=rootpass
+MYSQL_DATABASE=myappdb
+MYSQL_USER=myuser
+MYSQL_PASSWORD=userpass
+
+📁 File 2: docker-compose.yml
+
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+
+
+🚀 How to run
+From the directory containing both files:
+
+docker compose up -d
+
+
+Access:
+🐬 MySQL CLI:
+
+
+docker exec -it mysql_container mysql -u root -p
+
+
