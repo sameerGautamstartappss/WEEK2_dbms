@@ -384,3 +384,47 @@ FROM employee;
 
 ---
 
+In MySQL:
+
+> **`NOT NULL` only prevents `NULL` values — it does not prevent empty strings (`''`).**
+
+So when you see rows with an empty `first_name` even though the column is `NOT NULL`, it’s **not a bug** — because `''` is a valid, non-NULL string.
+
+---
+
+### 👉 To ensure `first_name` is not empty:
+
+* Use a `CHECK` constraint like `CHECK (first_name <> '')` (MySQL 8.0.16+), **or**
+* Create a `BEFORE INSERT` trigger to block empty strings in older versions.
+
+---
+
+### 🔹 **Command:**
+
+```sql
+TRUNCATE TABLE customers_one;
+```
+
+### 🧾 What it Does:
+
+* **Deletes all rows** from the `customers_one` table.
+* **Resets** any `AUTO_INCREMENT` counter back to its initial value (usually 1).
+* Unlike `DELETE FROM customers_one;`, `TRUNCATE` is:
+
+  * Much **faster**
+  * Uses **less logging**
+  * Cannot be **rolled back** (if you're not in a transaction-safe mode)
+
+---
+
+### 🔹 **Command:**
+
+```sql
+SELECT * FROM customers_one;
+```
+
+### 🧾 What it Shows:
+
+* Returns an **empty result**, confirming that **all rows were removed** from the table.
+
+---
