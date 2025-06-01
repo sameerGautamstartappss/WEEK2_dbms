@@ -3,11 +3,8 @@ services:
   mysql:
     image: mysql:8.0
     container_name: mysql_container
-    environment: 
-      MYSQL_ROOT_PASSWORD: rootpass             # 🔐 Root password
-      MYSQL_DATABASE: appdbdocker               # 📦 Auto-created database
-      MYSQL_USER: user                          # 👤 Non-root user
-      MYSQL_PASSWORD: userpass                  # 🔐 Password for non-root user
+    restart: unless-stopped
+    env_file: .env
     ports:
       - "3306:3306"                             # 🔗 Expose MySQL port
     volumes:
@@ -16,10 +13,6 @@ services:
   # postgres:
   #   image: postgres:15
   #   container_name: postgres_container
-  #   environment:
-  #     POSTGRES_DB: testdb
-  #     POSTGRES_USER: user
-  #     POSTGRES_PASSWORD: userpass
   #   ports:
   #       - "5432:5432"
   #   volumes:
@@ -28,8 +21,6 @@ services:
   # oracle:
   #   image: gvenzl/oracle-xe:21.3.0-slim
   #   container_name: oracle-container
-  #   environment: 
-  #     ORACLE_PASSWORD: oraclepass
   #   ports:
   #     - "1521:1521"
   #     - "8080:8080"

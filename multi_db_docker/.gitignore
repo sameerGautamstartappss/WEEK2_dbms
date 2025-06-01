@@ -1,0 +1,29 @@
+# Ignore dotenv files with sensitive data
+.env
+.env.*
+
+# Docker volumes and persistent data
+mysql_data/
+postgres_data/
+oracle_data/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+
+# Python virtual environments (if used alongside)
+venv/
+__pycache__/
+*.pyc
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Ignore docker-compose override (if used locally)
+docker-compose.override.yml
