@@ -1,3 +1,53 @@
+Spreadsheets work well for small datasets and handling straightforward tasks like organizing lists or runnning simple financial analyses.
+
+However as data grows in size and interconnections - such as tracking relationships across multiple datasets or analyzing trends over time - Spreadsheets quickly become unwieldy.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Database is a collection of related data. Data is a collection of facts and figures which may be useful or may not be useful.
 
 DBMS :- Database Management System

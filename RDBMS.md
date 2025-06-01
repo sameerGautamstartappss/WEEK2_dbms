@@ -203,5 +203,184 @@ ALTER TABLE <table_name>
 DROP COLUMN <column1>,
 DROP COLUMN <column2>;
 ```
+---
+
+# 🌟 **Primary Keys in SQL**
+
+## 🔑 What is a Primary Key?
+
+In **database management**, a **primary key** is a **column or set of columns** that uniquely identifies each row in a table.
+
+> ✅ A primary key ensures that **every row is unique** and **not null**, which is essential for maintaining **data integrity**.
+>
+> 🔁 It serves as the main reference point for operations like **searching**, **updating**, and **deleting** records.
+>
+> 🔗 In **relational databases**, it is used to **link tables** and form **relationships** between datasets.
 
 ---
+
+## 🧱 Four Pillars of Data Integrity
+
+1. **Accuracy** – Data is free from errors and correct.
+2. **Completeness** – All necessary data is present; no missing values.
+3. **Consistency** – Data values are in agreement and follow defined rules.
+4. **Validity** – Data conforms to the correct **format and type** (e.g., date, email).
+
+> ✅ When all four are maintained, **trust** is built with customers and stakeholders.
+
+---
+
+## 📏 Constraints of a Primary Key
+
+* **Unique Values**: No duplicate values allowed.
+* **Not NULL**: A primary key cannot contain `NULL`.
+* **One per Table**: Only one primary key per table, which can be a single column or a **composite key**.
+* **Non-numeric Allowed**: Though often integers, keys can be text, binary, or dates.
+
+  > 🔍 Consider **performance** with non-numeric keys (e.g., more space & slower indexing).
+
+---
+
+## 🧩 Composite Keys
+
+A **composite key** uses **multiple columns** when no single column is unique.
+
+**Example:**
+
+```sql
+CREATE TABLE enrollments (
+  StudentID INT,
+  CourseID INT,
+  PRIMARY KEY (StudentID, CourseID)
+);
+```
+
+> This ensures uniqueness in **student-course combinations**.
+
+---
+
+## 🛠 Creating a Primary Key
+
+### ✅ During Table Creation:
+
+```sql
+CREATE TABLE employee (
+  employeeID INT NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
+  firstName VARCHAR(255) NOT NULL,
+  PRIMARY KEY (employeeID)
+);
+```
+
+### 🔁 On an Existing Table:
+
+```sql
+ALTER TABLE employee ADD PRIMARY KEY (employeeID);
+```
+
+---
+
+## Dropping a Primary Key
+
+```sql
+ALTER TABLE employee DROP PRIMARY KEY;
+```
+
+---
+
+## 📊 Data Types for Primary Keys
+
+* **INT / BIGINT** – most efficient (used with `AUTO_INCREMENT`)
+* **VARCHAR / CHAR** – possible but less performant
+* **DATE / BINARY** – rare but allowed
+
+> Ensure the type matches the uniqueness and indexing strategy.
+
+---
+
+## ⚙️ AUTO\_INCREMENT in MySQL
+
+Used for automatically generating **incrementing unique values** (typically in primary keys).
+
+### ✅ When Creating a Table:
+
+```sql
+CREATE TABLE employees (
+  id INT AUTO_INCREMENT,
+  name VARCHAR(100),
+  position VARCHAR(100),
+  PRIMARY KEY (id)
+);
+```
+
+### 🔁 Modifying an Existing Table:
+
+**a) Add a new column with AUTO\_INCREMENT:**
+
+```sql
+ALTER TABLE employees
+ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY;
+```
+
+**b) Modify an existing column:**
+
+```sql
+ALTER TABLE employees 
+MODIFY COLUMN id INT AUTO_INCREMENT;
+```
+
+**c) Set Starting Value:**
+
+```sql
+ALTER TABLE employees AUTO_INCREMENT = 1000;
+```
+
+> 🔔 AUTO\_INCREMENT must be on a column that is **PRIMARY KEY or UNIQUE**.
+
+---
+
+## 🧪 Notes on NULL Values
+
+| Value Type      | Length Result |
+| --------------- | ------------- |
+| `NULL` (SQL)    | `NULL`        |
+| `"NULL"` (text) | `4`           |
+
+**Test Example:**
+
+```sql
+SELECT id, name, account_type, LENGTH(account_type) AS length 
+FROM customers WHERE id = 1;
+```
+
+---
+
+## ⚠️ SQL CASE Syntax Reminder
+
+No commas between `WHEN` clauses.
+
+```sql
+SELECT name,
+  CASE 
+    WHEN salary > 50000 THEN 'High'
+    WHEN salary BETWEEN 30000 AND 50000 THEN 'Medium'
+    ELSE 'Low'
+  END AS salary_range
+FROM employees;
+```
+
+---
+
+## 📎 Working with ALIAS
+
+Aliases rename columns or tables **temporarily** in the query result.
+
+**Example:**
+
+```sql
+SELECT firstName AS 'First Name', lastName AS 'Last Name'
+FROM employee;
+```
+
+---
+
