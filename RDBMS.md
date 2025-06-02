@@ -428,3 +428,360 @@ SELECT * FROM customers_one;
 * Returns an **empty result**, confirming that **all rows were removed** from the table.
 
 ---
+
+
+## 📚 **MySQL String Functions**
+
+* ✅ **Used primarily with `VARCHAR`, `CHAR`, and string-based columns.**
+* ✅ **Typically used during data retrieval (`SELECT`) to format or combine string values.**
+
+---
+
+### 🔹 **1. `CONCAT()`**
+
+The `CONCAT()` function joins two or more strings together into a single string.
+
+#### 🧩 **Syntax:**
+
+```sql
+SELECT CONCAT(string1, string2, ...);
+```
+
+or when working with table columns:
+
+```sql
+SELECT CONCAT(column1, column2, ...) FROM table_name;
+```
+
+---
+
+### 🔍 **Examples:**
+
+#### ✅ Concatenating literal strings:
+
+```sql
+SELECT CONCAT('Hello', 'World');
+```
+
+**Result:**
+
+```
+HelloWorld
+```
+
+#### ✅ Concatenating column values (no space):
+
+```sql
+SELECT emp_id, CONCAT(first_name, last_name) AS 'Full name' FROM employees;
+```
+
+**Output:**
+
+| emp\_id | Full name |
+| ------- | --------- |
+| 101     | ABCDEF    |
+| 102     | UVWXYZ    |
+| 103     | JKLRST    |
+
+#### ✅ Concatenating with space:
+
+```sql
+SELECT emp_id, CONCAT(first_name, ' ', last_name) AS 'Full name' FROM employees;
+```
+
+**Output:**
+
+| emp\_id | Full name |
+| ------- | --------- |
+| 101     | ABC DEF   |
+| 102     | UVW XYZ   |
+| 103     | JKL RST   |
+
+---
+
+### 🧠 **Key Notes:**
+
+* You can concatenate any number of strings.
+* If any argument is `NULL`, the result will be `NULL` unless `CONCAT_WS()` is used.
+* `CONCAT()` is commonly used to display user-friendly names (like full names, addresses, etc.).
+
+---
+
+### 🔹 **2. `CONCAT_WS()`**
+
+### 🧾 **Full Form:**
+
+**WS = With Separator**
+
+---
+
+### ✅ **Purpose:**
+
+Combines multiple strings into one, inserting a **separator** between them.
+Unlike `CONCAT()`, it **ignores `NULL` values** instead of returning `NULL`.
+
+---
+
+### 🛠️ **Syntax:**
+
+```sql
+SELECT CONCAT_WS('separator', string1, string2, ...);
+```
+
+* **`'separator'`**: A character or string like `' '`, `':'`, `'&'`, `'#'` used to separate the values.
+* **`string1, string2, ...`**: Columns or literal strings to concatenate.
+
+---
+
+## 🧪 **Examples using `employees` table:**
+
+| emp\_id | first\_name | last\_name | desig     | dept |
+| ------- | ----------- | ---------- | --------- | ---- |
+| 101     | ABC         | DEF        | Manager   | Loan |
+| 102     | UVW         | XYZ        | Cashier   | Cash |
+| 103     | JKL         | RST        | Associate | Cash |
+
+---
+
+### 🔸 Example 1: Using Colon `:` as Separator
+
+```sql
+SELECT CONCAT_WS(':', emp_id, first_name, last_name, desig, dept) FROM employees;
+```
+
+| Output                         |
+| ------------------------------ |
+| 101\:ABC\:DEF\:Manager\:Loan   |
+| 102\:UVW\:XYZ\:Cashier\:Cash   |
+| 103\:JKL\:RST\:Associate\:Cash |
+
+---
+
+### 🔸 Example 2: Using Ampersand `&` as Separator
+
+```sql
+SELECT CONCAT_WS('&', emp_id, first_name, last_name, desig, dept) FROM employees;
+```
+
+| Output                         |
+| ------------------------------ |
+| 101\&ABC\&DEF\&Manager\&Loan   |
+| 102\&UVW\&XYZ\&Cashier\&Cash   |
+| 103\&JKL\&RST\&Associate\&Cash |
+
+---
+
+### 🔸 Example 3: Using Hash `#` as Separator
+
+```sql
+SELECT CONCAT_WS('#', emp_id, first_name, last_name, desig, dept) FROM employees;
+```
+
+| Output                     |
+| -------------------------- |
+| 101#ABC#DEF#Manager#Loan   |
+| 102#UVW#XYZ#Cashier#Cash   |
+| 103#JKL#RST#Associate#Cash |
+
+---
+
+### 🧠 **Key Points to Remember:**
+
+* ✅ Automatically skips `NULL` values.
+* ✅ Cleaner and safer than `CONCAT()` when working with optional fields.
+* ✅ Widely used in formatting export strings, logs, key-value pairs, etc.
+
+---
+  
+
+
+Here's the **final, complete guide** to MySQL’s `SUBSTRING()` function, fully integrated with **literal examples, table queries, positive & negative indexing**, and **real-world use cases** — organized systematically for learning or reference.
+
+---
+
+# 📘 MySQL String Function: `SUBSTRING()`
+
+---
+
+## 🧠 1. Purpose
+
+The `SUBSTRING()` function extracts a specific part of a string based on position and optional length.
+
+---
+
+## 🧾 2. Syntax
+
+```sql
+SUBSTRING(string, start_position , length)
+```
+
+* `start_position`:
+
+  * **Positive** — starts from the beginning (1-based).
+  * **Negative** — starts from the end.
+* `length` *(optional)* — how many characters to return.
+
+🟡 Alias: `SUBSTR()` does the same.
+
+---
+
+## 🔍 3. Examples Using Literal Strings
+
+### ▶️ A. Positive Indexing
+
+```sql
+SELECT SUBSTRING('hello Duniya', 1, 7);
+```
+
+| Result  |
+| ------- |
+| hello D |
+
+```sql
+SELECT SUBSTRING('hello Duniya', 3, 12);
+```
+
+| Result     |
+| ---------- |
+| llo Duniya |
+
+```sql
+SELECT SUBSTRING('hello Duniya', 5, 12);
+```
+
+| Result   |
+| -------- |
+| o Duniya |
+
+```sql
+SELECT SUBSTRING('hello Duniya', 7);
+```
+
+| Result |
+| ------ |
+| Duniya |
+
+```sql
+SELECT SUBSTRING('hello Duniya', 7, 12);
+```
+
+| Result |
+| ------ |
+| Duniya |
+
+---
+
+### ▶️ B. Negative Indexing
+
+```sql
+SELECT SUBSTRING('Hello Duniya', -6);
+```
+
+| Result |
+| ------ |
+| Duniya |
+
+---
+
+## 🧱 4. Examples Using Real Table: `employees`
+
+### 🗂 Table: `employees`
+
+| emp\_id | first\_name | last\_name | desig     | dept |
+| ------- | ----------- | ---------- | --------- | ---- |
+| 101     | ABC         | DEF        | Manager   | Loan |
+| 102     | UVW         | XYZ        | Cashier   | Cash |
+| 103     | JKL         | RST        | Associate | Cash |
+
+---
+
+### ▶️ A. Extracting Rightmost 2 Digits from `emp_id`
+
+```sql
+SELECT SUBSTRING(emp_id, -2) AS 'Emp Id', first_name FROM employees;
+```
+
+| Emp Id | first\_name |
+| ------ | ----------- |
+| 01     | ABC         |
+| 02     | UVW         |
+| 03     | JKL         |
+
+---
+
+### ▶️ B. Extracting from 3rd Character of `emp_id`
+
+```sql
+SELECT SUBSTRING(emp_id, 3) AS 'Emp Id', first_name AS 'First Name' FROM employees;
+```
+
+| Emp Id | First Name |
+| ------ | ---------- |
+| 1      | ABC        |
+| 2      | UVW        |
+| 3      | JKL        |
+
+---
+
+### ▶️ C. From Subquery (One Row Only)
+
+```sql
+SELECT SUBSTRING(
+  (SELECT CONCAT('$', emp_id, first_name, last_name, desig, dept)
+   FROM employees LIMIT 1),
+  1, 5
+);
+```
+
+| Result  |
+| ------- |
+| \$101AB |
+
+---
+
+### ▶️ D. Using `CONCAT_WS()` with Delimiter
+
+```sql
+SELECT SUBSTRING(
+  (SELECT CONCAT_WS('&', first_name, last_name, desig, dept)
+   FROM employees LIMIT 1),
+  1, 15
+);
+```
+
+| Result            |
+| ----------------- |
+| ABC\&DEF\&Manager |
+
+---
+
+### ▶️ E. Row-wise `SUBSTRING` from All Employee Fields
+
+```sql
+SELECT SUBSTRING(CONCAT_WS('&', emp_id, first_name, last_name, desig, dept), 1, 16)
+FROM employees;
+```
+
+| Output              |
+| ------------------- |
+| 101\&ABC\&DEF\&Mana |
+| 102\&UVW\&XYZ\&Cash |
+| 103\&JKL\&RST\&Asso |
+
+---
+
+## 🧾 5. Summary Table
+
+| Example                                 | Output         | Notes                        |
+| --------------------------------------- | -------------- | ---------------------------- |
+| `SUBSTRING('hello Duniya', 1, 7)`       | `hello D`      | First 7 characters           |
+| `SUBSTRING('hello Duniya', 7)`          | `Duniya`       | From 7th char to end         |
+| `SUBSTRING('Hello Duniya', -6)`         | `Duniya`       | 6 characters from the end    |
+| `SUBSTRING(emp_id, -2)`                 | `01`, `02`...  | Last 2 digits of `emp_id`    |
+| `SUBSTRING(emp_id, 3)`                  | `1`, `2`...    | 3rd character onward         |
+| `SUBSTRING((SELECT ... LIMIT 1), 1, 5)` | `one row only` | Subquery must return one row |
+| `SUBSTRING(CONCAT_WS(...), 1, 16)`      | `trimmed row`  | Combines fields then slices  |
+
+---
+
+
